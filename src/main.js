@@ -1,7 +1,5 @@
 import { createApp } from 'vue'
 
-// import VueNativeSock from 'vue-native-websocket'
-
 import SockJS from 'sockjs-client'
 
 import App from './App.vue'
