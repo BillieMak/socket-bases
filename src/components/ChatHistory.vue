@@ -6,19 +6,25 @@
     </div>
     <!-- {{ received_messages }} -->
 </template>
-<script setup>
-import { toRefs } from 'vue';
+<script>
+import { toRefs, defineComponent } from 'vue';
 import useChat from '@/composables/useChat';
 
-// Define las propiedades directamente dentro del bloque <script setup>
-const props = {
+export default defineComponent({
+  props: {
     received_messages: {
-        type: Array,
-        required: true
+      type: Array,
+      required: true
     }
-};
+  },
+  setup(props) {
+    const { received_messages: receivedMessages } = toRefs(props); // Renombramos la propiedad para evitar conflictos
 
-const { received_messages } = toRefs(props);
+    const { isCurrentUser } = useChat();
 
-const { isCurrentUser } = useChat();
+    return { receivedMessages, isCurrentUser }; // Devolvemos el objeto con el nuevo nombre de propiedad
+  }
+});
 </script>
+
+
