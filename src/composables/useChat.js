@@ -30,7 +30,7 @@ const useSocket = () => {
     });
 
     const connect = () => {
-        socket = new SockJS('http://localhost:8080/chat');
+        socket = new SockJS('chatserve-production.up.railway.app/chat');
         stompClient = Stomp.over(socket);
         stompClient.connect({}, frame => {
             connected.value = true;
@@ -46,6 +46,7 @@ const useSocket = () => {
             })
         }, error => {
             console.log(error);
+            alert('Error: ' + JSON.stringify(error));
             // store.commit('auth/logout');
             connected.value = false;
         });
