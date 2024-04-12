@@ -33,10 +33,10 @@ const useSocket = () => {
         // socket = new SockJS('servechat-production.up.railway.app/chat');
         socket = new SockJS('http://localhost:8080/chat');
         stompClient = Stomp.over(socket);
-        stompClient.connect({}, frame => {
+        stompClient.connect({}, () => {
             connected.value = true;
             // console.log('Connected ');
-            console.log(frame);
+            // console.log(frame);
             stompClient.subscribe('/topic/greetings', message => {
                 const usu = JSON.parse(message.body);
                 if (usu && usu.user !== user.value.name) {
@@ -46,7 +46,7 @@ const useSocket = () => {
 
             })
         }, error => {
-            console.log(error);
+            // console.log(error);
             alert('Error: ' + JSON.stringify(error));
             // store.commit('auth/logout');
             connected.value = false;
