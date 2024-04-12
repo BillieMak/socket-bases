@@ -30,7 +30,7 @@ const useSocket = () => {
     });
 
     const connect = () => {
-        socket = new SockJS('servechat-production.up.railway.app/chat');
+        socket = new SockJS('https://servechat-production.up.railway.app/chat');
         // socket = new SockJS('http://localhost:8080/chat');
         stompClient = Stomp.over(socket);
         stompClient.connect({}, () => {
