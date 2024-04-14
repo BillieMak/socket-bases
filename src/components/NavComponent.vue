@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-between items-center p-3 w-full bg-indigo-700 gap-3 ">
+    <div class="flex justify-between items-center p-3 w-full bg-cyan-500 dark:bg-cyan-700/40 gap-3 ">
         <h2 class="text-gray-100 font-semibold tracking-widest ">ChatRoom</h2>
         <!-- <button class="bg-red-500 p-2 rounded-md shadow-md shadow-red-400/70">asd</button> -->
         <label class="switch scale-75">

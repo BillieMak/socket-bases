@@ -8,7 +8,7 @@ import audio from '@/assets/noti.mp3';
 
 const useSocket = () => {
 
-    const text = ref('');
+    const msg = ref('');
     const received_messages = ref([]);
     const store = useStore();
     const router = useRouter()
@@ -35,8 +35,7 @@ const useSocket = () => {
         stompClient = Stomp.over(socket);
         stompClient.connect({}, () => {
             connected.value = true;
-            // console.log('Connected ');
-            // console.log(frame);
+            
             stompClient.subscribe('/topic/greetings', message => {
                 const usu = JSON.parse(message.body);
                 if (usu && usu.user !== user.value.name) {
@@ -46,9 +45,9 @@ const useSocket = () => {
 
             })
         }, error => {
-            // console.log(error);
+            
             alert('Error: ' + JSON.stringify(error));
-            // store.commit('auth/logout');
+       
             connected.value = false;
         });
 
@@ -63,12 +62,8 @@ const useSocket = () => {
 
     const sendMessage = () => {
         if (stompClient && stompClient.connected) {
-
-            // const msg = {name:text.value}
-            const msg = text.value;
-            // console.log(JSON.stringify({usuario: user.value, msg}));
-            stompClient.send("/app/hello", JSON.stringify({ user: user.value.name, msg }), {});
-            text.value = '';
+           stompClient.send("/app/hello", JSON.stringify({ user: user.value.name, msg: msg.value }), {});
+           msg.value = '';
         }
     }
 
@@ -82,7 +77,7 @@ const useSocket = () => {
     });
 
     return {
-        text,
+        msg,
         user,
         received_messages,
         connected,

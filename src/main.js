@@ -6,11 +6,16 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import { OhVueIcon, addIcons } from "oh-vue-icons";
+import {  IoSend , BiPeopleFill } from "oh-vue-icons/icons";
+
 import './assets/tailwind.css'
+
+addIcons(IoSend, BiPeopleFill );
 
 const app = createApp(App)
 
-// app.config.globalProperties.$socket = new SockJS('http://localhost:8080/chat');
+app.component("v-icon", OhVueIcon);
 
 app.use(store)
 app.use(router)

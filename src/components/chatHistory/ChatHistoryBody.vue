@@ -1,12 +1,12 @@
 <template>
-    <div v-for="{ user, msg } in received_messages" :key="user">
-        <p class="p-3" :class="isCurrentUser(user) ? 'text-right' : 'text-left'">
-            <span class="font-semibold">{{ isCurrentUser(user) ? 'me' : user + ' said' }}</span>: {{ msg }}
-        </p>
+    <div v-for="{ user, msg } in received_messages" :key="user" class="flex flex-col p-2">
+        <div class="p-2 inline-block rounded-lg" :class="isCurrentUser(user) ? 'self-end bg-cyan-600' : 'self-start bg-gray-600'">
+            <p class="text-white font-mono text-sm font-semibold">
+                 {{ msg }}
+            </p>
+        </div>
     </div>
-    <!-- {{ received_messages }} -->
 </template>
-
 <script>
 import { toRefs, defineComponent } from 'vue';
 import useChat from '@/composables/useChat';

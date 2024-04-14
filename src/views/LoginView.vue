@@ -1,7 +1,7 @@
 <template>
     <div class="pt-4 flex justify-center items-center h-screen flex-col">
 
-        <h1 class="text-white font-arial font-semibold mb-2">Ingrese su Nombre de Usuario</h1>
+        <h1 class="text-zinc-900 dark:text-white font-arial font-semibold mb-2">Ingrese su Nombre de Usuario</h1>
         <div>
             <input class="bg-gray-200 p-2 rounded-md shadow-sm shadow-gray-300 outline-none mr-2" 
         type="text" v-model="name" @keypress.enter="join">
