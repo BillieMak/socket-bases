@@ -19,12 +19,9 @@
 
     <main
       class="bg-white rounded-md shadow shadow-slate-200 inline-block w-11/12 sm:w-4/5 md:w-5/6 lg:w-3/4 2xl:w-1/2 xl:w-1/2 h-3/4 overflow-y-auto p-1 self-center">
-      <div class="chat">
-        <ChatRoomHead :user="user" :connected="connected" />
-        <ChatHistoryBody :received_messages="received_messages" />
-      </div>
+      <ChatRoomHead :user="user" :connected="connected" />
+      <ChatHistoryBody :received_messages="received_messages" />
       <ChatRoomFooter v-model="msg" :sendMessage="sendMessage" />
-
     </main>
   </div>
 </template>
@@ -40,9 +37,3 @@ import useChat from '@/composables/useChat';
 const { user, connected, msg, received_messages, sendMessage, connect, disconnect } = useChat();
 
 </script>
-<style scoped>
-.chat {
-  height: 91%;
-  max-height: 91%;
-}
-</style>

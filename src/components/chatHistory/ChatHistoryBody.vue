@@ -1,29 +1,42 @@
 <template>
-    <div v-for="{ user, msg } in received_messages" :key="user" class="flex flex-col p-2">
-        <div class="p-2 inline-block rounded-lg" :class="isCurrentUser(user) ? 'self-end bg-cyan-600' : 'self-start bg-gray-600'">
-            <p class="text-white font-mono text-sm font-semibold">
-                 {{ msg }}
-            </p>
+    <div class="chat overflow-y-auto scroll-smooth" ref="chatContainer" id="chat">
+        <div class="flex flex-col p-2  gap-2">
+            <div ref="chatContainer" v-for="message in received_messages" :key="message.id"
+                :class="getMessageClass(message)">
+                <p class="text-white font-mono text-sm font-semibold text-start">{{ message.msg }}</p>
+            </div>
         </div>
     </div>
 </template>
-<script>
-import { toRefs, defineComponent } from 'vue';
+
+<script setup>
+import { toRefs, defineProps, watch, ref } from 'vue';
 import useChat from '@/composables/useChat';
 
-export default defineComponent({
-    props: {
-        received_messages: {
-            type: Array,
-            required: true
-        }
-    },
-    setup(props) {
-        const { received_messages: receivedMessages } = toRefs(props); // Renombramos la propiedad para evitar conflictos
+const props = defineProps({
+    received_messages: Array
+})
 
-        const { isCurrentUser } = useChat();
+const { received_messages } = toRefs(props)
+const { isCurrentUser } = useChat();
 
-        return { receivedMessages, isCurrentUser }; // Devolvemos el objeto con el nuevo nombre de propiedad
-    }
+const chatContainer = ref(null)
+
+watch(received_messages.value, () => {
+    chatContainer.value.scroll(0, chatContainer.value.scrollHeight);
+})
+
+
+const getMessageClass = (message) => ({
+    'p-2 inline-block rounded-lg': true,
+    'self-end bg-cyan-600': isCurrentUser.value(message.user),
+    'self-start bg-gray-600': !isCurrentUser.value(message.user),
 });
 </script>
+
+<style scoped>
+.chat {
+    height: 84%;
+    max-height: 84%;
+}
+</style>
