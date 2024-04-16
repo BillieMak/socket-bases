@@ -21,8 +21,6 @@ const useSocket = () => {
     const user = computed(() => store.getters['auth/getUser']);
 
     // const currentUser = computed(() => store.getters['auth/getUser']);
-
-
     watch(user, () => {
         if (!user.value) {
             router.push({ name: 'login' })
@@ -32,7 +30,11 @@ const useSocket = () => {
     const connect = () => {
         socket = new SockJS('https://servechat-production.up.railway.app/chat');
         // socket = new SockJS('http://localhost:8080/chat');
-        stompClient = Stomp.over(socket);
+        stompClient = Stomp.over(socket,{
+            debug: false
+        });
+
+
         stompClient.connect({}, () => {
             connected.value = true;
             
@@ -61,6 +63,9 @@ const useSocket = () => {
     }
 
     const sendMessage = () => {
+
+        if(msg.value === '') return
+
         if (stompClient && stompClient.connected) {
            stompClient.send("/app/hello", JSON.stringify({ user: user.value.name, msg: msg.value }), {});
            msg.value = '';
