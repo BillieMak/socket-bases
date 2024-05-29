@@ -23,7 +23,12 @@ const { isCurrentUser } = useChat();
 const chatContainer = ref(null)
 
 watch(received_messages.value, () => {
-    chatContainer.value.scroll(0, chatContainer.value.scrollHeight);
+   setTimeout(() => {
+    chatContainer.value?.scrollTo({
+        top: chatContainer.value.scrollHeight,
+        behavior: 'smooth'
+    });
+   }, 100);
 })
 
 
